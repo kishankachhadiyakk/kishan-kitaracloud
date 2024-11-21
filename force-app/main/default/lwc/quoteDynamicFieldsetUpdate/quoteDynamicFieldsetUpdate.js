@@ -12,6 +12,7 @@ export default class QuoteDynamicFieldsetUpdate extends LightningElement {
     }
 
     loadFields() {
+        alert(this.recordId);
         getFieldSetFields({ fieldSetName: 'Approval_Fields' })
             .then((result) => {
                 // Precompute fields for template use
