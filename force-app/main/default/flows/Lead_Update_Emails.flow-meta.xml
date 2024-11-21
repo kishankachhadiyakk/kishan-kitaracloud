@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Email_for_International_Requirement</name>
+        <label>Send Email for International Requirement</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>InternationaReq_template</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>partner@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>rick@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Lead Disqualified Reason -  International Requirements</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Email_for_Prospective_partner</name>
+        <label>Send Email for Prospective partner</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>ProspectivePartner_template</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>partner@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>rick@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Lead Disqualified Reason -  Prospective partner</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>56.0</apiVersion>
+    <decisions>
+        <name>Check_Reason_and_Status_Changed</name>
+        <label>Check Reason and Status Changed</label>
+        <locationX>314</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>International_Requirements</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Disqualified_Reason__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>International Requirements</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Disqualified</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_for_International_Requirement</targetReference>
+            </connector>
+            <label>International Requirements</label>
+        </rules>
+        <rules>
+            <name>Prospective_Partner</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Disqualified_Reason__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Prospective Partner</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Disqualified</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_for_Prospective_partner</targetReference>
+            </connector>
+            <label>Prospective Partner</label>
+        </rules>
+    </decisions>
+    <description>Removed the portion that sends emails to Lead owners when a lead is set to &apos;MQL&apos;</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>EmailtoAddress</name>
+        <dataType>String</dataType>
+        <expression>&apos;all@solvdllc.com&apos;</expression>
+    </formulas>
+    <formulas>
+        <name>NotModified</name>
+        <dataType>Number</dataType>
+        <expression>({!$Record.LastModifiedDate} - {!$Record.CreatedDate})*24</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>Lead - Update Emails {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lead - Update Emails</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_Reason_and_Status_Changed</targetReference>
+        </connector>
+        <object>Lead</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>Email24hourfollowup</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>The following Lead, has been created .This Lead has not been modified and needs follow up.
+Lead Name (FN/LN) - {!$Record.FirstName} {!$Record.LastName}
+Company name - {!$Record.Company}
+Email address - {!$Record.Email}
+Created Date - {!$Record.CreatedDate}
+Lead Record - https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>followup48hour</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>The following Lead, has been created .This Lead has not been modified in over 48 hours and needs follow up.
+Lead Name (FN/LN) - {!$Record.FirstName} {!$Record.LastName}
+Company name - {!$Record.Company}
+Email address - {!$Record.Email}
+Created Date - {!$Record.CreatedDate}
+Lead Record - https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>InternationaReq_template</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>The following lead was disqualified due to &quot;International Requirements&quot;.
+https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>NewLeadassignment</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>The following Lead, has been created and assigned to you.
+Lead Name (FN/LN) - {!$Record.FirstName} {!$Record.LastName}
+Company name - {!$Record.Company}
+Email address - {!$Record.Email}
+Created Date - {!$Record.CreatedDate}
+Primary Campaign Source: https://nileglobal.lightning.force.com/{!$Record.CampaignID__r.Id}
+Lead Record - https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>oneyearfollowup</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>The following Lead, was disqualified over a year ago. This reason for disqualification was &quot;Timeline too far out&quot; please follow up with the lead.
+Lead Name (FN/LN) - {!$Record.FirstName} {!$Record.LastName}
+Company name - {!$Record.Company}
+Email address - {!$Record.Email}
+Created Date - {!$Record.CreatedDate}
+Lead Record - https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ProspectivePartner_template</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>The following lead was disqualified due to being a &quot;Prospective Partner&quot;.
+https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <triggerOrder>1600</triggerOrder>
+</Flow>

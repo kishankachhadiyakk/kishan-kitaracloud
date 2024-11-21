@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>8</activeVersionNumber>
+    <description>1.This flow fetch the lead record and check if lead is created or updated if it is the new record then it will populate the original lead source .
+2.If it is existing lead means its updated record then it will again check the original lead source is populated or not if not then it populate the value of lead source from original value.</description>
+    <masterLabel>Lead - Populate Original Lead Source</masterLabel>
+</FlowDefinition>

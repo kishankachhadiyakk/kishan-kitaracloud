@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Insights_on_what_was_good_or_bad__c</fullName>
+    <inlineHelpText>We value your feedback. We would appreciate any insight on what we did well and where we can continue.</inlineHelpText>
+    <label>Insights on what was good or bad?</label>
+    <length>131072</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>2</visibleLines>
+</CustomField>

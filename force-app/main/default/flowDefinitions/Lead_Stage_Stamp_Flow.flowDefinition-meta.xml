@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>21</activeVersionNumber>
+    <description>When a leads record&apos;s status is changed, this flow stamps the new lead&apos;s status and then calculates the time between the changes and stamps that as well in the stage duration fields.</description>
+    <masterLabel>Lead - Stage Stamp Flow</masterLabel>
+</FlowDefinition>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>HubSpot_Integration</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule will ensure any downloads of ZoomInfo lead will not sync to Salesforce. The goal is to keep our HubSpot contact count to the current tier pricing plan we are on.</description>
+        <label>HubSpot Integration</label>
+        <sharedTo>
+            <role>HubSpot_Integration</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>LeadSource</field>
+            <operation>notEqual</operation>
+            <value>Zoominfo</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

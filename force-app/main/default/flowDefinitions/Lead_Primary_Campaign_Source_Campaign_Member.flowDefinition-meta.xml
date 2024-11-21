@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>11</activeVersionNumber>
+    <description>This flow will fetch the campaign record and campaign member record if the campaign member does not exit then it will create the campaign member record.</description>
+    <masterLabel>Lead - Primary Campaign Source - Campaign Member</masterLabel>
+</FlowDefinition>

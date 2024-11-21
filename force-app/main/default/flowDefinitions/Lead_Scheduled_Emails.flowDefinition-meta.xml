@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>9</activeVersionNumber>
+    <description>This is scheduled flow which will send the email alert as per not modified MQL hours.</description>
+    <masterLabel>Lead - Scheduled Emails</masterLabel>
+</FlowDefinition>

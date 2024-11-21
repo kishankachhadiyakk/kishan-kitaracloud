@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>&quot;This is a record triggered flow on account object which is triggered at ctreation and updation of record. with the certain criteria as BillingPostalCode is not null and SDR__c and S__c is not null. Then It is geeting the zip code records based on a formula created in the flow and checking if it is partner account .
+Based on several criterias it updates the currect account record&apos;s OwnerID, AE2, SA, SDR from the zip code object records which match the criterias.&quot;</description>
+    <masterLabel>Account - SDR and Owner Assignment New</masterLabel>
+</FlowDefinition>

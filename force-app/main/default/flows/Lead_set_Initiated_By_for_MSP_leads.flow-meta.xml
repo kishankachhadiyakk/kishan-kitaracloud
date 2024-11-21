@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <decisions>
+        <description>When the Lead needs to be updated and Partner Registered needs to be removed because the Lead Source was changed from MSP Registered, it will go this route.</description>
+        <name>RemovePartnerRegistered</name>
+        <label>RemovePartnerRegistered</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnector>
+            <targetReference>UpdateInitiatedBy</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Remove_Partner_Registered</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>MSP Registered</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>MSP Registered</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Initiated_By__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Partner Initiated</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Remove_Partner_Registered_From_Initiated_By</targetReference>
+            </connector>
+            <label>Remove Partner Registered</label>
+        </rules>
+    </decisions>
+    <description>Updated the flow to trigger when the Lead Source is changed from MSP Registered.
+Partner Initiated will be removed from the Initiated By field.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Used to remove Partner Registered from the Initiated By field</description>
+        <name>BlankValue</name>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE(null, &quot;&quot;)</expression>
+    </formulas>
+    <interviewLabel>Lead - set Initiated By for MSP leads {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lead - set Initiated By for MSP leads</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Remove the value of Partner Registered from the Initiated By field</description>
+        <name>Remove_Partner_Registered_From_Initiated_By</name>
+        <label>Remove Partner Registered From Initiated By</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <inputAssignments>
+            <field>Initiated_By__c</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>UpdateInitiatedBy</name>
+        <label>UpdateInitiatedBy</label>
+        <locationX>314</locationX>
+        <locationY>395</locationY>
+        <inputAssignments>
+            <field>Initiated_By__c</field>
+            <value>
+                <stringValue>Partner Initiated</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>RemovePartnerRegistered</targetReference>
+        </connector>
+        <filterFormula>OR(
+    AND(
+          ISNEW(),
+          ISPICKVAL({!$Record.LeadSource}, &apos;MSP Registered&apos;)
+     ),
+    AND(
+          ISCHANGED({!$Record.LeadSource}), 
+          ISPICKVAL({!$Record.LeadSource}, &apos;MSP Registered&apos;)
+    ),
+    AND(
+          ISCHANGED({!$Record.Initiated_By__c}), 
+          ISPICKVAL({!$Record.LeadSource}, &apos;MSP Registered&apos;)
+    ),
+    AND(
+       ISPICKVAL({!$Record__Prior.LeadSource}, &apos;MSP Registered&apos;),
+        NOT(ISPICKVAL({!$Record.LeadSource}, &apos;MSP Registered&apos;)),
+        ISPICKVAL({!$Record.Initiated_By__c}, &apos;Partner Initiated&apos;)
+    )
+)</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>1500</triggerOrder>
+</Flow>

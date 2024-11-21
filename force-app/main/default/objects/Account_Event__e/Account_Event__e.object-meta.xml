@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This is a platform event on the object Account. This is used for the integration with NetSuite Customer.</description>
+    <eventType>HighVolume</eventType>
+    <label>Account Event</label>
+    <pluralLabel>Account Events</pluralLabel>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
+</CustomObject>

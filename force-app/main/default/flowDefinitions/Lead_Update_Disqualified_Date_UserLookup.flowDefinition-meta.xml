@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>9</activeVersionNumber>
+    <description>&quot;This screenflow is getting user and lead records and assign LeadStatusBeforeDisqualified to lead status.Then it will display the disqualified reason screen and check if lead source is populated.if it is populated then it will update the lead record fields ad if it is not populated then it will again check the decision as lead score is higher than 60 if yes then it will update the lead record and get lead leadsource with leadsource .
+Again it checks disqualified reason is Bad Customer &quot;&quot;Closed Lost&quot;&quot; then it update the status as disquakified.&quot;</description>
+    <masterLabel>Lead: Update to Disqualified with Reason</masterLabel>
+</FlowDefinition>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>4</activeVersionNumber>
+    <description>This flow fetches the lead records and updated the SDR and lead id of related lead recordId field on Lead and display the display completion text field.</description>
+    <masterLabel>Lead - Bulk SDR (User) Update</masterLabel>
+</FlowDefinition>

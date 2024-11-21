@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>1</activeVersionNumber>
+    <description>This flow relates any event to both the contact and the opportunity the contact is a contact role on.</description>
+    <masterLabel>Event - create on Opportunity related with Contact</masterLabel>
+</FlowDefinition>

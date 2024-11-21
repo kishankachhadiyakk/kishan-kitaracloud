@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>8</activeVersionNumber>
+    <description>This is the screenflow which will populate the zip code details screen and again check the decision if state is all then update the zip coded record of all the state accordingly.</description>
+    <masterLabel>Zip Code - Update Assignments</masterLabel>
+</FlowDefinition>

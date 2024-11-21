@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>16</activeVersionNumber>
+    <description>Final version of the flow. Correct Address list. 
+No &apos;Test&apos; opps will be able to go through the flow.
+v10 - added &apos;and SA&apos; to email body.
+V13 - added Bill the CFO as a recipient
+V14 - Renewal Type opportunities will not trigger this flow</description>
+    <masterLabel>Opportunity - Closed-Won Send Email (Stephen Patak)</masterLabel>
+</FlowDefinition>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Canada_Partner_Leads</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Partner_State__c</columns>
+    <columns>Partner_Website__c</columns>
+    <columns>Partner_City__c</columns>
+    <columns>Partner_Country__c</columns>
+    <columns>Partner_Type__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Allbound_ID__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Partner_Country__c</field>
+        <operation>equals</operation>
+        <value>Canada</value>
+    </filters>
+    <label>Canada Partner Leads</label>
+</ListView>

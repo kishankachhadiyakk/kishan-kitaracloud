@@ -1,0 +1,27 @@
+<aura:component implements="lightning:actionOverride" access="global" controller="NewOpportunityAuraActionController">
+    <aura:attribute name="fields"
+                    type="String[]"
+                    default="['Name', 'AccountId', 'Initiated_By__c','Partner_Account__c', 'CloseDate', 'StageName', 'Type', 'Greenfield_Brownfield_Both_Implementatio__c', 'New_Business_Opportunity__c', 'New_Business_Quote__c']"/>
+    
+    <!-- Attribute to store opportunity type -->
+    <aura:attribute name="opportunityType" type="String" />
+    <aura:attribute name="recordId" type="String" />
+    <!-- Displays toast notifications  -->
+    <lightning:notificationsLibrary aura:id="notifLib" /> 
+    <lightning:card>
+        <div class="slds-m-around_medium">
+            <Center><h2 class="slds-modal__title slds-hyphenate slds-text-heading--medium">New Opportunity</h2></Center>
+            <hr/>
+            
+            
+            <lightning:recordForm objectApiName="Opportunity"
+                                  aura:id="myRecordForm"
+                                  recordId="{!v.recordId}"
+                                  fields="{!v.fields}"
+                                  onsubmit="{!c.handleSubmit}"
+                                  onsuccess = "{!c.handleSuccess}" 
+                                  oncancel="{!c.handleCancel}"
+                				  mode="edit"/>
+        </div>
+    </lightning:card>
+</aura:component>

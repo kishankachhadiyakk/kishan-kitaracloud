@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>1</activeVersionNumber>
+    <description>&quot;This flow is on opportunity record which will triggered when recod is created.
+Then it will check if status is Not equal Discover or Qualify and profile name is equal Outside Sales Profile  and send email alert to opportunity.&quot;</description>
+    <masterLabel>Opportunity - Create</masterLabel>
+</FlowDefinition>

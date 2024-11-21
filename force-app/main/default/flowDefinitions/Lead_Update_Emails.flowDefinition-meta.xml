@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>12</activeVersionNumber>
+    <description>&quot;This is record triggered flow on lead which check if status changes to MQL the it will send the email to SDR about new Lead.
+If disqualified reason is International Requirements and status is equal disqualified then it will send email for international requirement.
+and if disqualified reason is equal prospective partner then it will send email for prospective partner.&quot;</description>
+    <masterLabel>Lead - Update Emails</masterLabel>
+</FlowDefinition>

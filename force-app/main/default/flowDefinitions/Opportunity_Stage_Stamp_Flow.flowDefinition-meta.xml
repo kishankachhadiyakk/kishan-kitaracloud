@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>8</activeVersionNumber>
+    <description>&quot;1.This flow is on opportunity which will check if stage is Discover then it will update Discover_Stage_Date__c field of opportunity with current date.
+If stage is qualify then it will update Qualify_Stage_Date__c field with current Date,if the stage is develop then it will update Develop_Stage_Date__c field with current date. If stage is validate then will update Validate_Stage_Date__c field with current date.and if stage is propose then update Propose_Stage_Date__c field with current date.If its finilaized stage then will update Finalize_Stage_Date__c field with current date and similar for order processing stage and win pending stage.
+2.Then again will check the decision if the status is changed then again update the fields as per condition&quot;</description>
+    <masterLabel>Opportunity - Stage Stamp Flow</masterLabel>
+</FlowDefinition>

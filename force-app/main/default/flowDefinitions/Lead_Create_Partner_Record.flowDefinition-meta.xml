@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>26</activeVersionNumber>
+    <description>1. This is record triggered flow on lead which fetch the matching partner record after the lead is created or updated  and From_Partner_Hubspot_Form__c = True OR Hubspot_Lead__c = True.
+2. Check if is lead from partner hubspot form or Contact Us Form.
+3. If partner hubspot form, then it will check if Partner Record Exist and if no then it will create the one and then again verified if the Lead is already disqualified, if not then it will disqualify the same by updating the Lead.
+4. Similarly, if Contact Us Form, then  it will check if Partner Record Exist and if no then it will create the partner record and then again verify if the Lead is already disqualified, if not then it will disqualify the same by updating the Lead.</description>
+    <masterLabel>Lead - Create Partner Record from Hubspot Form</masterLabel>
+</FlowDefinition>

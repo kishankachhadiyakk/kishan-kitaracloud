@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>&quot;1.This flow is record triggered flow on event object which will triggered when record is created and updated which the some custom entry condition (I,e: Whoid starts with 00Q, whoId is not null ,subject equals meeting and is deleted equals true).
+2.Then It will check if the event status is scheduled or rescheduled then it will update the lead status to SAL.
+If Event status is occured or occurred -rejected by client the then update lead status to SQL.
+if meeting is deleted then it will update lead status to MQL.&quot;</description>
+    <masterLabel>Event- Update Lead Status</masterLabel>
+</FlowDefinition>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sq_ft_per_Floor__c</fullName>
+    <description>Average SQFT per floor</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Average SQFT per floor</inlineHelpText>
+    <label>Sq ft per Floor</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPIFF_Payout__c</fullName>
+    <inlineHelpText>Please indicate if the Partner requires Spiffs to be paid directly to the individuals or to corporate.</inlineHelpText>
+    <label>SPIFF Payout</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Payment direct to Partner</fullName>
+                <default>false</default>
+                <label>Payment direct to Partner</label>
+            </value>
+            <value>
+                <fullName>Payment direct to Sales &amp; SA</fullName>
+                <default>false</default>
+                <label>Payment direct to Sales &amp; SA</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

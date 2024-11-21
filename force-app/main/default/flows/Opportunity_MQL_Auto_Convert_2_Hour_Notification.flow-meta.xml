@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Email_Sales_Manager_0</name>
+        <label>Email Sales Manager</label>
+        <locationX>1087</locationX>
+        <locationY>681</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>rick@nile-global.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>admin@nile-global.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Hot Opportunity - 24 Hours Alert</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>Email_Template_24Hours</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>MQL_Email_Alert_24_Hour</name>
+        <label>MQL Email Alert - 24 Hour</label>
+        <locationX>1303</locationX>
+        <locationY>634</locationY>
+        <actionName>Opportunity.MQL_Email_Alert_24_Hour</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Opportunity.MQL_Email_Alert_24_Hour</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>MQL_Email_Alert_2_Hour</name>
+        <label>MQL Email Alert - 2 Hour</label>
+        <locationX>426</locationX>
+        <locationY>671</locationY>
+        <actionName>Opportunity.MQL_Email_Alert_2_Hour</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Opportunity.MQL_Email_Alert_2_Hour</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <name>Send_Another_Email</name>
+        <label>Send Another Email?</label>
+        <locationX>1200</locationX>
+        <locationY>467</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>X24_Hour_Email_Alert</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CreatedDate</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.LastModifiedDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MQL_Email_Alert_24_Hour</targetReference>
+            </connector>
+            <label>24 Hour Email Alert</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determines if the Opportunity has been updated/worked within the past 2 hours</description>
+        <name>Send_Initial_Email</name>
+        <label>Send Initial Email?</label>
+        <locationX>507</locationX>
+        <locationY>451</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>X2_Hour_Email_Alert</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CreatedDate</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.LastModifiedDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MQL_Email_Alert_2_Hour</targetReference>
+            </connector>
+            <label>2 Hour Email Alert</label>
+        </rules>
+    </decisions>
+    <description>Removed reference to Brian and Nile digimar users</description>
+    <environments>Default</environments>
+    <interviewLabel>Opportunity MQL Auto Convert {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity MQL Auto Convert - 2 Hour Notification</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>714</locationX>
+        <locationY>48</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Created_from_MQL_Lead__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>Send_Email_Notification_to_Manager</name>
+            <connector>
+                <targetReference>Send_Initial_Email</targetReference>
+            </connector>
+            <label>Send Email Notification to Manager</label>
+            <offsetNumber>2</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>Send_Another_Email_Notification_to_Manager</name>
+            <connector>
+                <targetReference>Send_Another_Email</targetReference>
+            </connector>
+            <label>Send Another Email Notification to Manager</label>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>Email_Template_24Hours</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;The following Opportunity, has been created via auto conversion and is deemed a hot Opportunity. This opportunity should be acted on within 24 hours.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Opportunity Link: &lt;a href=&quot;https://nileglobal.lightning.force.com/lightning/r/Opportunity/{!$Record.Id}/view&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://nileglobal.lightning.force.com/lightning/r/Opportunity/{!$Record.Id}/view&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Opportunity Name: {!$Record.Name}&lt;/p&gt;&lt;p&gt;Opportunity Owner: &lt;a href=&quot;https://nileglobal.lightning.force.com/lightning/r/User/{!$Record.OwnerId}/view&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://nileglobal.lightning.force.com/lightning/r/User/{!$Record.OwnerId}/view&lt;/a&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Email_Template_2Hours</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14.6667px; font-family: Calibri, sans-serif; color: rgb(32, 31, 30);&quot;&gt;The following Opportunity,&lt;/span&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(32, 31, 30); font-family: Calibri, sans-serif; font-size: 11pt;&quot;&gt;&amp;nbsp;has been created via auto conversion and is deemed a hot Opportunity.&amp;nbsp;This opportunity should be acted on within 2 hours.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(32, 31, 30); font-family: Calibri, sans-serif; font-size: 11pt;&quot;&gt;Opportunity Link: &lt;/span&gt;&lt;a href=&quot;https://nileglobal.lightning.force.com/lightning/r/Opportunity/{!$Record.Id}/view&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;https://nileglobal.lightning.force.com/lightning/r/Opportunity/{!$Record.Id}/view&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(32, 31, 30); font-family: Calibri, sans-serif; font-size: 11pt;&quot;&gt;Opportunity Name: {!$Record.Name}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(32, 31, 30); font-family: Calibri, sans-serif; font-size: 11pt;&quot;&gt;Opportunity Owner: &lt;/span&gt;&lt;a href=&quot;https://nileglobal.lightning.force.com/lightning/r/User/{!$Record.OwnerId}/view&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;https://nileglobal.lightning.force.com/lightning/r/U&lt;/a&gt;&lt;a href=&quot;https://nileglobal.lightning.force.com/lightning/r/User/{!$Record.OwnerId}/view&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;ser/{!$Record.OwnerId}/view&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</text>
+    </textTemplates>
+</Flow>

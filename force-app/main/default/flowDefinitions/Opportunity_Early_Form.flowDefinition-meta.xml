@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is screen flow which is getting opportunity record and display the opportunity screen and then update the opportunity records and send the opportunity for approval process</description>
+    <masterLabel>Opportunity - Early Form</masterLabel>
+</FlowDefinition>

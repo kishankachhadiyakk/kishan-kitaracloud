@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set we create to give users the ability to view User reports. The only way to do it was give them the ability to look at the back end setup.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View Setup and Configurations / User Reports</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewRoles</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewSetup</name>
+    </userPermissions>
+</PermissionSet>

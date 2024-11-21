@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Email_for_Allbound_Create_Partner_Lead</name>
+        <label>Send Email for Allbound Create Partner Lead</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Update_Reminder_Fields</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>{!$Record.Owner:User.Email},Partner@nilesecure.com, rick@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>rick@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubjectAllBoundPartnerEmail</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>AllboundPartnerEmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Email_for_Manually_Create_Partner_Lead</name>
+        <label>Send Email for Manually Create Partner Lead</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Copy_2_of_Update_Reminder_Fields</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>partner@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>rick@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Partner Deal provided by a Partner not in Allbound</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>ManualPartnerEmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>56.0</apiVersion>
+    <decisions>
+        <name>Status_is_MQL</name>
+        <label>Status is MQL</label>
+        <locationX>314</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Manually_Entered_Partner</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Partner Registered</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Allbound_ID__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_for_Manually_Create_Partner_Lead</targetReference>
+            </connector>
+            <label>Manually Entered Partner</label>
+        </rules>
+        <rules>
+            <name>AllBound_Partner_MQL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Partner Registered</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Allbound_ID__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_for_Allbound_Create_Partner_Lead</targetReference>
+            </connector>
+            <label>AllBound Partner MQL</label>
+        </rules>
+    </decisions>
+    <description>Changed entry criteria from checking for status &apos;MQL&apos; to &apos;AQL&apos;</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>NotModified</name>
+        <dataType>Number</dataType>
+        <expression>({!$Record.LastModifiedDate} - {!$Record.CreatedDate})*24</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>SQL24HourRecipients</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Owner:User.Email}+&apos;,brian@nilesecure.com&apos;+&apos;,rick@nilesecure.com&apos;+&apos;,lou@nilesecure.com&apos;</expression>
+    </formulas>
+    <interviewLabel>Lead - Create Emails {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lead - Create Emails</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Copy_2_of_Update_Reminder_Fields</name>
+        <label>Update Reminder Fields</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>CheckReminderTimer2__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SendReminder2__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Reminder_Fields</name>
+        <label>Update Reminder Fields</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>CheckReminderTimer2__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SendReminder2__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Status_is_MQL</targetReference>
+        </connector>
+        <filterLogic>(1 AND 2) OR (3 AND 4)</filterLogic>
+        <filters>
+            <field>LeadSource</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Zoominfo</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>AQL</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>LeadSource</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Partner Registered</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Allbound_ID__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Lead</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>AllboundPartnerEmailBody</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Sender: Deal Registration Received - partner@nilesecure.com
+Sent to: {!$Record.Owner:User.FirstName} {!$Record.Owner:User.LastName}, Partner@nilesecure.com, {!$Record.Partner_Account__r.Owner:User.Email}
+Subject: A New Deal Registration is Submitted by {!$Record.Partner_Account__r.Name}
+
+Date: {!$Flow.CurrentDate}
+
+Dear {!$Record.Owner:User.FirstName} {!$Record.Owner:User.LastName},
+
+You have received a new deal registration submission from {!$Record.Partner_Account__r.Name}
+
+Submitted by: {!$Record.Partner_Account__r.Name}
+Partner Contact: {!$Record.Partner_First_Name__c} {!$Record.Partner_Last_Name__c}, {!$Record.Partner_Job_Title__c}, {!$Record.Partner_Email__c}, {!$Record.Partner_Phone_Number__c}
+Date of Submission: {!$Record.CreatedDate}
+
+Company Name: {!$Record.Company}
+Customer Contact: {!$Record.FirstName} {!$Record.LastName}, {!$Record.Title_Picklist__c}, {!$Record.Email}, {!$Record.Phone}
+
+Opportunity Type: {!$Record.Partner_Opportunity_Type__c}
+Project Description: {!$Record.Partner_Project_Description__c}
+
+Sales Force Link: https://nileglobal.lightning.force.com/{!$Record.Id}
+
+Please align with the partner and “Accept” / “Reject” the opportunity within 24 hours.</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Email24hoursfollowup</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>The following Lead, has been created and not been modified in 24 hours. Please follow up.
+Lead Name (FN/LN) - {!$Record.FirstName} {!$Record.LastName}
+Company name - {!$Record.Company}
+Email address - {!$Record.Email}
+Created Date - {!$Record.CreatedDate}
+Primary Campaign Source: https://nileglobal.lightning.force.com/{!$Record. CampaignID__c}
+Lead Record - https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Email_onCreation</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>The following Lead, has been created and assigned to you. 
+Lead Name (FN/LN) - {!$Record.FirstName} {!$Record.LastName}
+Company name - {!$Record.Company}
+Email address - {!$Record.Email}
+Created Date - {!$Record.CreatedDate}
+Primary Campaign Source: https://nileglobal.lightning.force.com/{!$Record.CampaignID__r.Id}
+Lead Record - https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Email_onCreationAfter48hr</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>The following Lead, has been created .This Lead has not been modified in over 48 hours and needs follow up.
+Lead Name (FN/LN) - {!$Record.FirstName} {!$Record.LastName}
+Company name - {!$Record.Company}
+Email address - {!$Record.Email}
+Created Date - {!$Record.CreatedDate}
+Lead Record - https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ManualPartnerEmailBody</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>An SDR manually entered the following Partner Deal Provided by a Partner, not in Allbound.
+Lead Record - https://nileglobal.lightning.force.com/{!$Record.Id}
+Lead Name: {!$Record.FirstName} {!$Record.LastName}
+Company: {!$Record.Company}
+Phone: {!$Record.Phone}
+Related Parnter: {!$Record.Related_Partner__c}
+Created Date: {!$Record.CreatedDate}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SQL2week</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>It&apos;s been 14 days since you completed your first meeting with the following account, are you ready to progress to an opportunity?
+Lead Details:
+Lead Name (FN/LN) - {!$Record.FirstName} {!$Record.LastName}
+Company name - {!$Record.Company}
+Email address - {!$Record.Email}
+Created Date - {!$Record.CreatedDate}
+Primary Campaign Source: https://nileglobal.lightning.force.com/{!$Record. CampaignID__c}
+Lead Record - https://nileglobal.lightning.force.com/{!$Record.Id}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubjectAllBoundPartnerEmail</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>A New Deal Registration is Submitted by {!$Record.Partner_Account__r.Name}</text>
+    </textTemplates>
+    <triggerOrder>1600</triggerOrder>
+</Flow>

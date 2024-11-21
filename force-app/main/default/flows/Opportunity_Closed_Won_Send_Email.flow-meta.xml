@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Email</name>
+        <label>Send Email</label>
+        <locationX>440</locationX>
+        <locationY>647</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddressesArray</name>
+            <value>
+                <elementReference>To_Addresses</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>DefaultWorkflowUser</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>Email_Subject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>Email_Body</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <name>Assign_To_Addresses</name>
+        <label>Assign To Addresses</label>
+        <locationX>440</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>To_Addresses</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>sales@nile-global.com</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>To_Addresses</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>adrena@nilesecure.com</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>To_Addresses</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>pankaj@nilesecure.com</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>To_Addresses</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>bill@nilesecure.com</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>To_Addresses</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>fanny@nilesecure.com</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Send_Email</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>This will check to see if the closed won opportunity is a test.</description>
+        <name>Send_Email_1</name>
+        <label>Send Email?</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Assign_To_Addresses</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Send Email</defaultConnectorLabel>
+        <rules>
+            <name>Test_Opp</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Name</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Test</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Test Opp?</label>
+        </rules>
+        <rules>
+            <name>MSP_Opp</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_MSP_Record_Type_ID.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <label>MSP Opp?</label>
+        </rules>
+    </decisions>
+    <description>Final version of the flow. Correct Address list. 
+No &apos;Test&apos; opps will be able to go through the flow.
+v10 - added &apos;and SA&apos; to email body.
+V13 - added Bill the CFO as a recipient
+V14 - Renewal Type opportunities will not trigger this flow
+V15 - Rick added Fanny as part of To Address</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>This will create a dynamic url for the opportunity that is closed won.</description>
+        <name>DynamicURLClosedOpp</name>
+        <dataType>String</dataType>
+        <expression>LEFT($Api.Partner_Server_URL_260, FIND( &apos;/services&apos;, $Api.Partner_Server_URL_260)) &amp; {!$Record.Id}</expression>
+    </formulas>
+    <interviewLabel>Opportunity - Closed-Won Send Email {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity - Closed-Won Send Email</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>This flow sends an email notification when Opps are changed to &apos;Closed Won&apos;</description>
+        <name>Get_MSP_Record_Type_ID</name>
+        <label>Get MSP Record Type ID</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Send_Email_1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>MSP</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_MSP_Record_Type_ID</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Closed Won</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>StageName</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Type</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Renewal</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>Email_Body</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Congratulations {!$Record.Owner.FirstName} {!$Record.Owner.LastName} and {!$Record.SA__c} on closing a new opportunity for {!$Record.Account.Name}.
+Opportunity ACV: {!$Record.Annual_Contract_Value__c}
+Opportunity TCV: {!$Record.Total_Contract_Value__c} 
+Opportunity Link: {!DynamicURLClosedOpp}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Email_Subject</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Deal Closed - Won!</text>
+    </textTemplates>
+    <variables>
+        <name>To_Addresses</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Second Group of emails</description>
+        <name>To_Addresses2</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

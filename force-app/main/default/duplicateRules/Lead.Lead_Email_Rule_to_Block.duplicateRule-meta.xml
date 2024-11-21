@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionOnInsert>Allow</actionOnInsert>
+    <actionOnUpdate>Allow</actionOnUpdate>
+    <alertText>The entered Lead Matches and email of an existing Lead or Contact. Use one of these records?</alertText>
+    <description>Block Manual and Zoominfo Leads when they match leads or contacts</description>
+    <duplicateRuleFilter>
+        <booleanFilter xsi:nil="true"/>
+        <duplicateRuleFilterItems>
+            <field>Hubspot_Lead__c</field>
+            <operation>equals</operation>
+            <value>false</value>
+            <sortOrder>1</sortOrder>
+            <table>Lead</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Allbound_ID__c</field>
+            <operation>equals</operation>
+            <value></value>
+            <sortOrder>2</sortOrder>
+            <table>Lead</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>From_Partner_Hubspot_Form__c</field>
+            <operation>equals</operation>
+            <value>false</value>
+            <sortOrder>3</sortOrder>
+            <table>Lead</table>
+        </duplicateRuleFilterItems>
+    </duplicateRuleFilter>
+    <duplicateRuleMatchRules>
+        <matchRuleSObjectType>Lead</matchRuleSObjectType>
+        <matchingRule>Lead_Email_Matching_Rule</matchingRule>
+        <objectMapping xsi:nil="true"/>
+    </duplicateRuleMatchRules>
+    <duplicateRuleMatchRules>
+        <matchRuleSObjectType>Contact</matchRuleSObjectType>
+        <matchingRule>Contact_Email_Matching_Rule</matchingRule>
+        <objectMapping>
+            <inputObject>Lead</inputObject>
+            <mappingFields>
+                <inputField>Email</inputField>
+                <outputField>Email</outputField>
+            </mappingFields>
+            <outputObject>Contact</outputObject>
+        </objectMapping>
+    </duplicateRuleMatchRules>
+    <isActive>true</isActive>
+    <masterLabel>Lead Email Rule to Block Duplicates for Lead/Contact</masterLabel>
+    <operationsOnInsert>Report</operationsOnInsert>
+    <operationsOnUpdate>Alert</operationsOnUpdate>
+    <operationsOnUpdate>Report</operationsOnUpdate>
+    <securityOption>EnforceSharingRules</securityOption>
+    <sortOrder>3</sortOrder>
+</DuplicateRule>

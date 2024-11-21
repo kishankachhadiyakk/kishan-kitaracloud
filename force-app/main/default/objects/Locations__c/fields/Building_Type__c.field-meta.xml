@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Building_Type__c</fullName>
+    <description>Choose a building purpose
+If the building is a Warehouse. AP can cover larger sqft area. On the flip side, a classroom would cover a smaller sqft area. On average, we are assuming each AP covers 2500 sqft.</description>
+    <inlineHelpText>Choose a building purpose
+If the building is a Warehouse. AP can cover larger sqft area. On the flip side, a classroom would cover a smaller sqft area. On average, we are assuming each AP covers 2500 sqft.</inlineHelpText>
+    <label>Building Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Warehouse</fullName>
+                <default>false</default>
+                <label>Warehouse</label>
+            </value>
+            <value>
+                <fullName>Higher Education</fullName>
+                <default>false</default>
+                <label>Higher Education</label>
+            </value>
+            <value>
+                <fullName>K-12</fullName>
+                <default>false</default>
+                <label>K-12</label>
+            </value>
+            <value>
+                <fullName>Small Medium Office</fullName>
+                <default>false</default>
+                <label>Small Medium Office</label>
+            </value>
+            <value>
+                <fullName>Enterprise</fullName>
+                <default>false</default>
+                <label>Enterprise</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

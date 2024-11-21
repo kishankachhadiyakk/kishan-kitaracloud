@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>This updates the Duplicate &apos;Primary Campaign Source Duplicate&apos; field based on the &apos;CampaignID&apos; field. This field is needed in order to have an Opportunity Related List on the Campaign Layout
+Updated entry criteria to account for ISNEW and has CampaignId value</description>
+    <environments>Default</environments>
+    <interviewLabel>Opportunity - Update Primary Campaign Source Duplicate {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity - Update Primary Campaign Source Duplicate</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Primary_Campaign_Source_field</name>
+        <label>Update Primary Campaign Source field</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <inputAssignments>
+            <field>Primary_Campaign_Source_Duplicate__c</field>
+            <value>
+                <elementReference>$Record.CampaignId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Primary_Campaign_Source_field</targetReference>
+        </connector>
+        <filterFormula>OR(
+   AND(ISNEW(),NOT(ISNULL({!$Record.CampaignId}))),
+   ISCHANGED({!$Record.CampaignId})
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

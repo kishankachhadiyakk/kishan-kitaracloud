@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>1</activeVersionNumber>
+    <description>This flow runs on opportunity contact role whe the record is created or updated.it will update the Contact_Role_Exists__c field of opportunity to true.</description>
+    <masterLabel>Opportunity Contact Role - Update Contact Role Exists on related Opportunity</masterLabel>
+</FlowDefinition>

@@ -1,0 +1,98 @@
+<apex:page standardController="Partner__c" >
+<apex:stylesheet value="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"/>
+<style>
+
+body,td{font-family: 'Montserrat', sans-serif!Important;font-size:16px;background-color:white;}
+.Custom24Tab .tertiaryPalette, .individualPalette .Custom24Block .tertiaryPalette, .layoutEdit .individualPalette .Custom24Block .tertiaryPalette {display:none!important;}  
+ .Custom24Tab .secondaryPalette, .individualPalette .Custom24Block .secondaryPalette{border-color:#979797;}
+ h2.mainTitle,.bPageBlock .pbTitle {display:none;}
+  body .bPageBlock .pbBody .labelCol, body .print .topics-label {color:#2b2b2b;}
+  div#j_id0:j_id3:j_id4 {border:none;}
+    .custom1 {
+        background-color: blue !important;
+    }
+    .custom3 {
+        background-color: green !important;
+    }
+    table.detailList {
+        width: 100% !important;
+        text-align: center;
+        margin: 0 auto;
+    }
+    .pbButton {
+        display: none !important;
+    }
+    .pbButtonb input{box-sizing: border-box; padding: 0 15px; min-height: 27px;background-color:#f5f8fa;height:48px;font-size:16px;font-weight:normal;line-height:22px;color:#33475b;}
+    body .bPageBlock, body .bPageBlock .pbBody, body .bPageBlock .pbBottomButtons {background-color:white!important;}
+    bPageBlock,body .bEditBlock .pbHeader, body .bLayoutBlock .pbHeader, body .apexp .bPageBlock.apexDefaultPageBlock .pbHeader,.bPageBlock .detailList tr td, .bPageBlock .detailList tr th, .hoverDetail .bPageBlock .detailList tr td, .hoverDetail .bPageBlock .detailList tr th,.individualPalette .Custom24Block .secondaryPalette {
+    border: 0px!important;
+}
+    
+   .pbButtonb input.btn[cancel],.pbButtonb:nth-child(2){background:none;background-color:transparent;color:#2c2c2c;border:0px;font-decoration:underline;}
+   
+    .pbButtonb input.btn:nth-child(2){background-color:transparent;color:#2b2b2b;font-size:16px;line-height:16px;background-image:none;border:0px;text-decoration:underline;}input.btn:hover:first-of-type:hover{background-color:#175d81!important;}
+    input[Save],input.btn:first-of-type{background-color:#ff8e00!important;background-image:none;font-size:16px;line-height:16px;color:white;}
+    body input.btn, body input.btnDisabled, body input.btnCancel,input[Cancel],input[Save],input.btn, input.btn:first-of-type, .pbButtonb input.btn:nth-child(2){cursor:pointer;font-weight:400;border-radius: 5px 5px 5px 5px;
+    padding: 19px 60px 19px 60px!important;}
+    input[Save]:hover {background-color:#175D81;color:white;}
+    .inputField {width: 40% !important;height:21px;    }
+    .bPageBlock .requiredInput .requiredBlock {background-color:transparent!important;}
+    .bPageBlock .requiredInput .requiredBlock::before{content:"*";color:red;position:relative;left:-5px;}
+    body .bPageBlock .pbBody .labelCol,.pbButtonb select option,.pbSubsection select optgroup,.multiSelectPicklistRow select option,option,select {font-size:.8125rem;font-weight:500;line-height:20px;color:#33475b;}
+    
+</style>
+<script>
+function redir() {
+    window.location = "https://nilesecure.com/ty/submitted-partner-registration/";
+}
+</script>
+<apex:form >
+
+<apex:pageBlock title="Nile Global Partner Application">
+.<!--<apex:outputPanel layout="block" styleClass="custom1"> -->
+<apex:pageBlockSection title="Nile Global Partner Information" columns="1"> 
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >First Name</apex:outputLabel>
+        <apex:inputField id="FirstName" value="{!Partner__c.First_Name__c}" required="true" styleClass="inputField" />
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >Last Name</apex:outputLabel>
+        <apex:inputField id="LastName" value="{!Partner__c.Last_Name__c}" required="true" styleClass="inputField"/>
+    </apex:pageBlockSectionItem> 
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >Business Email Address</apex:outputLabel>
+        <apex:inputField id="Email" value="{!Partner__c.Partner_Email__c}" required="true" styleClass="inputField"/>
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >Company</apex:outputLabel>
+        <apex:inputField id="Name" value="{!Partner__c.Name}" required="true" styleClass="inputField"/>
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >Phone Number</apex:outputLabel>
+        <apex:inputField id="PhoneNumber" value="{!Partner__c.Partner_Phone__c}" required="true" styleClass="inputField"/>
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >Website</apex:outputLabel>
+        <apex:inputField id="Website" value="{!Partner__c.Website__c}" required="true" styleClass="inputField"/>
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >Country</apex:outputLabel>
+        <apex:inputField id="Country" value="{!Partner__c.Partner_Country__c}" required="true" styleClass="inputField"/>
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >Number of Employees</apex:outputLabel>
+        <apex:inputField id="Employee" value="{!Partner__c.Number_of_Employees__c}" required="true" styleClass="inputField"/>
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >Partner Type</apex:outputLabel>
+        <apex:inputField id="Type" value="{!Partner__c.Partner_Type__c}" required="true"/>
+    </apex:pageBlockSectionItem>
+</apex:pageBlockSection>
+<!--</apex:outputPanel> --> 
+<apex:pageBlockButtons >
+<apex:commandButton id="Save" action="{!quickSave}" oncomplete="redir();" value="Submit"/>
+<apex:commandButton id="Cancel" action="{!Cancel}" value="Cancel"/>
+</apex:pageBlockButtons>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

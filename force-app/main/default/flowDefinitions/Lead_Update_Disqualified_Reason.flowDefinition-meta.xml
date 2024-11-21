@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>1</activeVersionNumber>
+    <description>&quot;This flow is on lead object which will triggered when it is updated.
+2. It will check if 1st Disqualified Reason is true then it will update the X1st_Disqualified_Reason1__c field of lead with Disqualified_Reason__c .
+And update the same for the 2nd 3rd 4th and 5th disqualifued reason field .&quot;</description>
+    <masterLabel>Lead - Update Disqualified Reasons 1-5</masterLabel>
+</FlowDefinition>

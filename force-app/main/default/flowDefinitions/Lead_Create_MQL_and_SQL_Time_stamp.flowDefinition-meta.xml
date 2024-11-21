@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>4</activeVersionNumber>
+    <description>This flow will set the MQL_stage_timestamp__c of lead record equal lead created date if the lead status is MQL and assign SQL stage timestamp equal lead created date if the status is equal SQL.</description>
+    <masterLabel>Lead - Create MQL and SQL Time stamp</masterLabel>
+</FlowDefinition>

@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Edit Quote Fields" icon-name="standard:quote">
+        <template if:true={fieldsWithValues}>
+            <template for:each={fieldsWithValues} for:item="field">
+                <lightning-input
+                    key={field.apiName}
+                    label={field.label}
+                    name={field.apiName}
+                    value={field.value}
+                    onchange={handleFieldChange}>
+                </lightning-input>
+            </template>
+            <lightning-button
+                variant="brand"
+                label="Save"
+                onclick={handleSave}>
+            </lightning-button>
+        </template>
+        <template if:true={error}>
+            <!-- <c-error-panel message={error}></c-error-panel> -->
+        </template>
+    </lightning-card>
+</template>

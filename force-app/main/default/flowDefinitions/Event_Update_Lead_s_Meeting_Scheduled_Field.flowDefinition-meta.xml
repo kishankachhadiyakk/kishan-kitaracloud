@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This flow updates the lead when an event is created on that lead. It checks the Meeting Scheduled checkbox and put the AE in the event that triggered the flow.</description>
+    <masterLabel>Event - Update Lead and Meeting Fileds</masterLabel>
+</FlowDefinition>

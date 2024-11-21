@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>33</activeVersionNumber>
+    <description>This changes the lead status of leads that have the lead source of Partner, Zoominfo, or Purchase list</description>
+    <masterLabel>Lead - At Create - Set Lead Status and Other Fields</masterLabel>
+</FlowDefinition>

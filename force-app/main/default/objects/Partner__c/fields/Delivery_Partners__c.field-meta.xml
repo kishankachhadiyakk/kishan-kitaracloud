@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delivery_Partners__c</fullName>
+    <label>Delivery Partners</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Site Survey</fullName>
+                <default>false</default>
+                <label>Site Survey</label>
+            </value>
+            <value>
+                <fullName>Cabling</fullName>
+                <default>false</default>
+                <label>Cabling</label>
+            </value>
+            <value>
+                <fullName>Rack &amp; Stack</fullName>
+                <default>false</default>
+                <label>Rack &amp; Stack</label>
+            </value>
+            <value>
+                <fullName>Service Activation</fullName>
+                <default>false</default>
+                <label>Service Activation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

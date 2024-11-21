@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Email_For_Finalize_Stage</name>
+        <label>Send Email For Finalize Stage</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>joanna@nilesecure.com,anna@nilesecure.com,karthikk@nilesecure.com,niraj@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubjectForFinalizeOpportunityStage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyForFinalizeStage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>useLineBreaks</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Email_For_Propose_Stage</name>
+        <label>Send Email For Propose Stage</label>
+        <locationX>50</locationX>
+        <locationY>647</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddressesArray</name>
+            <value>
+                <elementReference>EmailListPropose</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubjectForProposeStageOpportunity</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>BodyForPropseOppo</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <description>Includes the SA and the list of specified users. Maximum of 5 users per email action.</description>
+        <name>Propose_Email_List</name>
+        <label>Propose Email List</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>EmailListPropose</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Get_User_Email.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>EmailListPropose</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>joanna@nilesecure.com</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Send_Email_For_Propose_Stage</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Check_Record_Type_Is_MSP</name>
+        <label>Check Record Type Is MSP</label>
+        <locationX>314</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>If_MSP</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>MSP</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Propose</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_User_Email</targetReference>
+            </connector>
+            <label>If MSP And Stage Propose</label>
+        </rules>
+        <rules>
+            <name>If_MSP_And_Stage_Finalize</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>MSP</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Finalize</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_For_Finalize_Stage</targetReference>
+            </connector>
+            <label>If MSP And Stage Finalize</label>
+        </rules>
+    </decisions>
+    <description>Added emails to the Propose path.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>OpportunityRecordLink</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_550}, FIND( &apos;/services&apos;, {!$Api.Partner_Server_URL_550})) &amp; {!$Record.Id}</expression>
+    </formulas>
+    <interviewLabel>Opportunity - MSP Registered Stage Change {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity - MSP Registered Stage Change</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_User_Email</name>
+        <label>Get User Email</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Propose_Email_List</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Account.SA__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_Record_Type_Is_MSP</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>BodyForFinalizeStage</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>{!$Record.Partner_Account__r.Name} needs the Order Form Sent for {!$Record.Name}.
+
+Partner Account Name : {!$Record.Partner_Account__r.Name}
+Partner Address : {!$Record.Partner_Account__r.Partner_Address__c}
+Account Name :{!$Record.Account.Name}
+Signatory : {!$Record.Signatory__c}
+Signatory Email : {!$Record.Signatory_Email__c}
+
+Opportunity Link : {!OpportunityRecordLink}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>BodyForPropseOppo</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Please check all appropriate fields are filled, Deployment Form is attached and then submit this for approval. 
+Opportunity Link : - {!OpportunityRecordLink}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubjectForFinalizeOpportunityStage</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>MSP Deal needs to be sent for signature - {!$Record.Name}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubjectForProposeStageOpportunity</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>MSP &apos;{!$Record.Name}&apos; - Needs Approval</text>
+    </textTemplates>
+    <variables>
+        <description>Includes the SA email and the list of , joanna@nilesecure.com,anna@nilesecure.com,karthikk@nilesecure.com,niraj@nilesecure.com</description>
+        <name>EmailListPropose</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>1</activeVersionNumber>
+    <description>This flow will check if No Call Or Event Is Created before the Lead&apos;s status is changed to True, then it will get event record and related task record and checks if get task or event are not blank then it will update Call_OR_Event_Created__c field of Lead as true.</description>
+    <masterLabel>Lead -Update Call or Event Field</masterLabel>
+</FlowDefinition>

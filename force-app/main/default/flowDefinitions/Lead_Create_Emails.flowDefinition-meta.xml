@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>39</activeVersionNumber>
+    <description>&quot;1.This flow is on creation of lead which run on the condition id Leadsource does not equal zoominfo and status equal MQL,Or Status equal SQL or Leadsouirce equal partner and allboundId is null.
+2.Again it will check if the status is equal MQL then it will send email to SDR abouit new lead.
+3. if leadsource equal partner and allbound id is null then it will send email for manually create partner Lead.
+4. If leadsource equal partner and allbound id is not null then it will send email for allbound create partner lead.&quot;</description>
+    <masterLabel>Lead - Create Emails</masterLabel>
+</FlowDefinition>

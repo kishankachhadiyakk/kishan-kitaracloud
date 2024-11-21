@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This flow is scheduled flow which will directly delete the lead record if the lead created date is less than fourteendays ago.</description>
+    <masterLabel>Lead - Delete 14+ Day Old ZoomInfo Leads</masterLabel>
+</FlowDefinition>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Jim_AE_Coverage</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Jim to cover AE&apos;s when they are OOTO</description>
+        <label>Jim AE Coverage</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0055f000004fVU7</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Allow_SAs_to_Edit_Opportunities</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule allows the SAs or anyone else in the &quot;Opportunity Editing AEs&quot; group to edit any opportunity, even if they dont own it.</description>
+        <label>Allow SAs to Edit Opportunities</label>
+        <sharedTo>
+            <group>Opportunity_Editing_Users</group>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

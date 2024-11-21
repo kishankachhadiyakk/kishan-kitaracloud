@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>ADR Performance KPIs</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>true</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Marketing Dashboard</label>
+    <navType>Standard</navType>
+    <tabs>Overview1</tabs>
+    <tabs>Leads</tabs>
+    <tabs>BDRs1</tabs>
+    <tabs>Higher_Ed</tabs>
+    <tabs>Nicki_Dash</tabs>
+    <tabs>Deployment_Data__c</tabs>
+    <tabs>Locations__c</tabs>
+    <tabs>InvoiceCustom__c</tabs>
+    <tabs>Child_Quote_Line__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>MB_Nile_Dashboard_App_UtilityBar</utilityBar>
+</CustomApplication>

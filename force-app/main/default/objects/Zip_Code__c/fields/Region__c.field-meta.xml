@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Region__c</fullName>
+    <label>Region</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Federal</fullName>
+                <default>false</default>
+                <label>Federal</label>
+            </value>
+            <value>
+                <fullName>PNW</fullName>
+                <default>false</default>
+                <label>PNW</label>
+            </value>
+            <value>
+                <fullName>West/Southwest</fullName>
+                <default>false</default>
+                <label>West/Southwest</label>
+            </value>
+            <value>
+                <fullName>Great Plains/Mountain</fullName>
+                <default>false</default>
+                <label>Great Plains/Mountain</label>
+            </value>
+            <value>
+                <fullName>South Central</fullName>
+                <default>false</default>
+                <label>South Central</label>
+            </value>
+            <value>
+                <fullName>Blueridge</fullName>
+                <default>false</default>
+                <label>Blueridge</label>
+            </value>
+            <value>
+                <fullName>Great Lakes</fullName>
+                <default>false</default>
+                <label>Great Lakes</label>
+            </value>
+            <value>
+                <fullName>New England</fullName>
+                <default>false</default>
+                <label>New England</label>
+            </value>
+            <value>
+                <fullName>NY Metro</fullName>
+                <default>false</default>
+                <label>NY Metro</label>
+            </value>
+            <value>
+                <fullName>Mid Atlantic</fullName>
+                <default>false</default>
+                <label>Mid Atlantic</label>
+            </value>
+            <value>
+                <fullName>Mid South</fullName>
+                <default>false</default>
+                <label>Mid South</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

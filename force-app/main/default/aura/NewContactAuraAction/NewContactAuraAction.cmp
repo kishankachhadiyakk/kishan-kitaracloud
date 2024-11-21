@@ -1,0 +1,15 @@
+<aura:component implements="lightning:actionOverride" access="global" >
+    <aura:attribute name="fields"
+                    type="String[]"
+                    default="['Title', 'FirstName', 'LastName','AccountId', 'Phone', 'MobilePhone', 'Email', 'Partner_Account_ID__c']"/>
+    
+    <!-- Displays toast notifications  -->
+    <lightning:notificationsLibrary aura:id="notifLib" /> 
+    <lightning:card>
+        <div class="slds-m-around_medium">
+            <Center><h2 class="slds-modal__title slds-hyphenate slds-text-heading--medium">New Contact</h2></Center>
+            <hr/>
+            <lightning:recordForm objectApiName="Contact"  fields="{!v.fields}" onsuccess = "{!c.handleSuccess}" oncancel="{!c.handleCancel}"/>
+        </div>
+    </lightning:card>
+</aura:component>

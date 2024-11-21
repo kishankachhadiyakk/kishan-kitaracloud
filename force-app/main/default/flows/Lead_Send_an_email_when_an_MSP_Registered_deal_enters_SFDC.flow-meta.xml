@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Send email for those deals coming from Allbound that are MSP Registered</description>
+        <name>Send_Email_for_Allbound_MSP_Registered</name>
+        <label>Send Email for Allbound MSP Registered</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>{!recordowner}, rick@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>rick@nilesecure.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SubjectAllBoundPartnerMSPRegisteredEmail</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>AllboundMSPRegisteredEmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <description>Once a deal is entered in Allbound and then syncs to SFDC, send an email to the owner.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>recordowner</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Owner:User.Email}</expression>
+    </formulas>
+    <interviewLabel>Lead - Send an email when an MSP Registered deal enters SFDC {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lead - Send an email when an MSP Registered deal enters SFDC</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Send_Email_for_Allbound_MSP_Registered</targetReference>
+        </connector>
+        <filterLogic>1</filterLogic>
+        <filters>
+            <field>LeadSource</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>MSP Registered</stringValue>
+            </value>
+        </filters>
+        <object>Lead</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>AllboundMSPRegisteredEmailBody</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Dear {!$Record.Owner:User.FirstName} {!$Record.Owner:User.LastName},
+
+You have received a new deal registration submission from {!$Record.Partner_Account__r.Name}
+Partner Contact: {!$Record.Partner_First_Name__c} {!$Record.Partner_Last_Name__c}, {!$Record.Partner_Job_Title__c}, {!$Record.Partner_Email__c}, {!$Record.Partner_Phone_Number__c}
+Date of Submission: {!$Record.CreatedDate}
+
+Company Name: {!$Record.Company}
+Customer Contact: {!$Record.FirstName} {!$Record.LastName}, {!$Record.Title_Picklist__c}, {!$Record.Email}, {!$Record.Phone}
+Opportunity Type: {!$Record.Partner_Opportunity_Type__c}
+Project Description: {!$Record.Partner_Project_Description__c}
+Sales Force Link: https://nileglobal.lightning.force.com/{!$Record.Id}
+
+Please align with the partner and “Accept” / “Reject” the opportunity within 24 hours.</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubjectAllBoundPartnerMSPRegisteredEmail</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>A New Deal Registration is Submitted by {!$Record.Partner_Account__r.Name}</text>
+    </textTemplates>
+    <variables>
+        <name>LeadSourceMSPRegistered</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Lead</objectType>
+    </variables>
+    <variables>
+        <name>MSPPartnerRegistered</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Lead</objectType>
+    </variables>
+    <variables>
+        <name>Test</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Lead</objectType>
+    </variables>
+</Flow>

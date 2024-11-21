@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>After an MQL Opp is created, send an email to the Sales Rep</description>
+        <name>Send_Email_to_Sales_Rep</name>
+        <label>Send Email to Sales Rep</label>
+        <locationX>844</locationX>
+        <locationY>464</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>EmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Owner.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>rick@nile-global.com.dev</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>EmailSubject</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <description>When an MQL Opportunity is created, send an email to the Sales Rep notifying them of the hot Opportunity</description>
+    <formulas>
+        <name>EmailSubject</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Name} &amp; &apos; - &apos; &amp; {!$Record.Id}</expression>
+    </formulas>
+    <interviewLabel>Opportunity MQL Auto Convert {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity MQL Auto Convert</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>714</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Send_Email_to_Sales_Rep</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Created_from_MQL_Lead__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>EmailBody</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Hello {!$Record.Owner.FirstName},
+
+A new MQL Opportunity was created. The Opportunity is called {!$Record.Name}. Please work the Opportunity within the next 2 hours. 
+
+Thanks,
+Nile Global Sales Team</text>
+    </textTemplates>
+</Flow>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>2</activeVersionNumber>
+    <description>&quot;1.This flow is on lead which will triggered when status is changed and is equal to MQL or SQL.
+2.If it is MQL then assign MQL_stage_timestamp__c field of lead to LastModifiedDate and if it is SQL then assign SQL_stage_timestamp__c field to Lastmodifieddate.&quot;</description>
+    <masterLabel>Lead - Update MQL and SQL timestamp</masterLabel>
+</FlowDefinition>

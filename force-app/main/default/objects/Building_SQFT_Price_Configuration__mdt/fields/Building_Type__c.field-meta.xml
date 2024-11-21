@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Building_Type__c</fullName>
+    <description>This picklist value should match with Locations Building_Type__c</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Building Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>K-12</fullName>
+                <default>true</default>
+                <label>K-12</label>
+            </value>
+            <value>
+                <fullName>Small Medium Office</fullName>
+                <default>false</default>
+                <label>Small Medium Office</label>
+            </value>
+            <value>
+                <fullName>Warehouse</fullName>
+                <default>false</default>
+                <label>Warehouse</label>
+            </value>
+            <value>
+                <fullName>Higher Education</fullName>
+                <default>false</default>
+                <label>Higher Education</label>
+            </value>
+            <value>
+                <fullName>Enterprise</fullName>
+                <default>false</default>
+                <label>Enterprise</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

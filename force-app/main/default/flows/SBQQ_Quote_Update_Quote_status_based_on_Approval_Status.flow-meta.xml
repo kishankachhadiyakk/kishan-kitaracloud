@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <decisions>
+        <name>Check_for_Approval_Status</name>
+        <label>Check for Approval Status</label>
+        <locationX>578</locationX>
+        <locationY>287</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Is_Pending</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ApprovalStatus__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pending</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Updated_Quote_Status_In_Review</targetReference>
+            </connector>
+            <label>Is Pending?</label>
+        </rules>
+        <rules>
+            <name>Is_Recalled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ApprovalStatus__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Recalled</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Quote_Status_Recalled</targetReference>
+            </connector>
+            <label>Is Recalled?</label>
+        </rules>
+        <rules>
+            <name>Is_Rejected</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ApprovalStatus__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Rejected</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Quote_Status_Rejected</targetReference>
+            </connector>
+            <label>Is Rejected?</label>
+        </rules>
+        <rules>
+            <name>Is_Approved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ApprovalStatus__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Quote_Status_Approved</targetReference>
+            </connector>
+            <label>Is Approved?</label>
+        </rules>
+    </decisions>
+    <description>This flow ensures that the Quote Status is always aligned with the latest Approval Status, keeping it up-to-date in real-time without manual intervention.</description>
+    <environments>Default</environments>
+    <interviewLabel>SBQQ-Quote: {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SBQQ-Quote: Update Quote Status Based On Approval Status</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Quote_Status_Approved</name>
+        <label>Update Quote Status = Approved</label>
+        <locationX>842</locationX>
+        <locationY>395</locationY>
+        <inputAssignments>
+            <field>SBQQ__Status__c</field>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Quote_Status_Recalled</name>
+        <label>Update Quote Status = Recalled</label>
+        <locationX>314</locationX>
+        <locationY>395</locationY>
+        <inputAssignments>
+            <field>Generate_Services_Summary__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SBQQ__Status__c</field>
+            <value>
+                <stringValue>Recalled</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Quote_Status_Rejected</name>
+        <label>Update Quote Status = Rejected</label>
+        <locationX>578</locationX>
+        <locationY>395</locationY>
+        <inputAssignments>
+            <field>Generate_Services_Summary__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SBQQ__Status__c</field>
+            <value>
+                <stringValue>Rejected</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Updated_Quote_Status_In_Review</name>
+        <label>Updated Quote Status  = In Review</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <inputAssignments>
+            <field>SBQQ__Status__c</field>
+            <value>
+                <stringValue>In Review</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>452</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_for_Approval_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ApprovalStatus__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>SBQQ__Quote__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

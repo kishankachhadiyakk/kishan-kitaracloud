@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexTestSuite xmlns="http://soap.sforce.com/2006/04/metadata">
+    <testClassName>ChangePasswordControllerTest</testClassName>
+    <testClassName>ForgotPasswordControllerTest</testClassName>
+    <testClassName>ImportToSalesLoftTest</testClassName>
+    <testClassName>LeadConversionTest</testClassName>
+    <testClassName>MyProfilePageControllerTest</testClassName>
+    <testClassName>NewOpportunityAuraActionController_Test</testClassName>
+    <testClassName>OktopostTestTriggerSocialPostUpdate</testClassName>
+    <testClassName>OpportunityUpdatedTriggerTest</testClassName>
+    <testClassName>SendEmailInvocable_Test</testClassName>
+    <testClassName>SiteLoginControllerTest</testClassName>
+    <testClassName>SiteRegisterControllerTest</testClassName>
+    <testClassName>UpdateAssignmentForZipCodeBatchTest</testClassName>
+    <testClassName>UpdateAssignmentForZipCodeInvocableTest</testClassName>
+    <testClassName>UpdateAssignmentInvocableTest</testClassName>
+    <testClassName>UpdateSDRForLeadBatchTest</testClassName>
+    <testClassName>UpdateSDRForLeadInvocableTest</testClassName>
+</ApexTestSuite>
