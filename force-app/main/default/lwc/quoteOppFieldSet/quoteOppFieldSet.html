@@ -1,3 +1,34 @@
 <template>
-    
+     <div class="slds-m-around_small" style="overflow-y: auto;">
+        <div class="slds-card__header slds-text-align_center">
+            <h2 class="slds-text-heading_medium">Quote</h2>
+        </div>
+        <hr class="slds-m-around_none">
+            <template if:true={recordExist}>
+                <template for:each={fieldsWithValues} for:item="field">
+                    <lightning-input
+                        key={field.apiName}
+                        label={field.label}
+                        name={field.apiName}
+                        value={field.value}
+                        type="text"
+                        required={field.isRequired}
+                        onchange={handleFieldChange}>
+                    </lightning-input>
+                </template>
+            </template> 
+            <template if:false={recordExist}>
+                <div class="slds-m-around_medium slds-text-align_center">
+                <span style="font-size: large;">Please Click on Submit</span>
+            </div>
+            </template>
+                <div class="slds-card__footer slds-text-align_right">
+                    <lightning-button class="slds-m-top_small"
+                        variant="brand"
+                        label="Submit"
+                        onclick={handleSave}>
+                    </lightning-button>
+                </div>  
+            
+    </div>
 </template>
